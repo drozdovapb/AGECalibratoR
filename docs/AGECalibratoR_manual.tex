@@ -1,0 +1,263 @@
+\documentclass[11pt]{article}
+\usepackage[top=1cm,left=2cm,right=3cm,footskip=2cm]{geometry}
+
+% amsmath and amssymb packages, useful for mathematical formulas and symbols
+\usepackage{amsmath,amssymb}
+
+% %greek letters
+%\usepackage{textgreek}
+
+% Use adjustwidth environment to exceed column width (see example table in text)
+\usepackage{changepage}
+
+% Use Unicode characters when possible
+\usepackage[utf8x]{inputenc}
+
+% textcomp package and marvosym package for additional characters
+\usepackage{textcomp,marvosym}
+
+% cite package, to clean up citations in the main text. Do not remove.
+\usepackage{cite}
+
+% Use nameref to cite supporting information files (see Supporting Information section for more info)
+\usepackage{nameref,hyperref}
+
+%hyperlinks without boxes but colored
+\hypersetup{colorlinks=true,urlcolor=blue, linkcolor = blue}
+
+% line numbers
+%\usepackage[right]{lineno}
+
+% ligatures disabled
+\usepackage{microtype}
+\DisableLigatures[f]{encoding = *, family = * }
+
+% color can be used to apply background shading to table cells only
+\usepackage[table]{xcolor}
+
+% array package and thick rules for tables
+\usepackage{array}
+
+% create "+" rule type for thick vertical lines
+\newcolumntype{+}{!{\vrule width 2pt}}
+
+%% create \thickcline for thick horizontal lines of variable length
+%\newlength\savedwidth
+%\newcommand\thickcline[1]{%
+%  \noalign{\global\savedwidth\arrayrulewidth\global\arrayrulewidth 2pt}%
+%  \cline{#1}%
+%  \noalign{\vskip\arrayrulewidth}%
+%  \noalign{\global\arrayrulewidth\savedwidth}%
+%}
+%
+%% \thickhline command for thick horizontal lines that span the table
+%\newcommand\thickhline{\noalign{\global\savedwidth\arrayrulewidth\global\arrayrulewidth 2pt}%
+%\hline
+%\noalign{\global\arrayrulewidth\savedwidth}}
+%
+%
+%% Remove comment for double spacing
+%%\usepackage{setspace} 
+%%\doublespacing
+%
+%% Text layout
+%\raggedright
+%\setlength{\parindent}{0.5cm}
+%\textwidth 5.25in 
+%\textheight 8.75in
+%
+%% Bold the 'Figure #' in the caption and separate it from the title/caption with a period
+%% Captions will be left justified
+%\usepackage[aboveskip=1pt,labelfont=bf,labelsep=period,justification=raggedright,singlelinecheck=off]{caption}
+%\renewcommand{\figurename}{Fig}
+%
+%% Use the PLoS provided BiBTeX style
+%\bibliographystyle{plos2015}
+%
+%% Remove brackets from numbering in List of References
+%\makeatletter
+%\renewcommand{\@biblabel}[1]{\quad#1.}
+%\makeatother
+%
+%% Leave date blank
+%\date{}
+%
+%% Header and Footer with logo
+\usepackage{lastpage,fancyhdr,graphicx}
+%\usepackage{epstopdf}
+%\pagestyle{myheadings}
+%\pagestyle{fancy}
+%\fancyhf{}
+%\setlength{\headheight}{27.023pt}
+%\lhead{\includegraphics[width=2.0in]{PLOS-submission.eps}}
+%\rfoot{\thepage/\pageref{LastPage}}
+%\renewcommand{\footrule}{\hrule height 2pt \vspace{2mm}}
+%\fancyheadoffset[L]{2.25in}
+%\fancyfootoffset[L]{2.25in}
+%\lfoot{\sf PLOS}
+%
+%%% Include all macros below
+%
+%\newcommand{\lorem}{{\bf LOREM}}
+%\newcommand{\ipsum}{{\bf IPSUM}}
+
+\begin{document}
+
+\section*{AGECalibratoR: User manual}
+
+\subsection*{Input data preparation}
+
+\begin{enumerate}
+
+\item Run SDD-AGE as described elsewhere [\hyperlink{http://www.jbc.org/content/278/49/49636.full}{Kryndushkin \textit{et al.}, 2003}] but include one or more lanes with any commercial 1~kb DNA ladder (about 2~ug is enough) mixed with loading buffer [\hyperlink{dx.doi.org/10.3791/838}{Halfmann \& Lindquist, 2009}].
+
+Important things to remember: 
+\begin{itemize}
+	\item Record agarose concentration in the gel, running time, and voltage.
+	\item Do not change the voltage during the run.
+\end{itemize}
+
+\item Cut off the lane(s) with DNA ladder with any metal or plastic object sharp enough (a plastic ruler, a knife of a scalpel).
+
+\item Stain the ladder part of the gel with ethidium bromide (e.g., 1 hour in 0.1 mg/L EtBr solution in water) or any alternative method you prefer. Please note that according to our experience incubation in EtBr should be increased about 5 times from that used for usual DNA-AGE. Take a picture of the gel. Even if you forget to cut off the ladder band before capillary transfer, you can still stain the DNA, even thought the bands might be more diffuse. 
+
+\item Use the remaining (protein) part of the gel for capillary transfer to a PVDF/nitrocellulose membrane as described elsewhere [\hyperlink{dx.doi.org/10.3791/838}{Halfmann \& Lindquist, 2009}]. Carefully align either the top or the bottom of the membrane to the top/bottom of the gel.
+
+\item Hybridize the membrane with corresponding antibody and detect the signal. 
+
+
+\begin{minipage}{0.4\linewidth}
+	\hskip 10mm
+\includegraphics[width=4.5cm]{images/combined_image.png}
+\end{minipage}  \hskip 3mm
+\begin{minipage}{0.57\linewidth}
+	\item Combine images of the DNA ladder in the gel and western blot 
+	using gel/membrane edges for alignment with your favorite image manipulation software (e.g. GIMP or PhotoShop). If necessary adjust the images to make them white-on-black (invert colors if necessary) in 8-bit mode. Export in png or tif(f) format. An example combined image is shown at the left.
+	
+	Please note that you can automatically stretch contrast for the ladder lane to make the bands more clearly visible, but it is not recommended for the main image, as the weight distribution may become shifted.
+	
+\end{minipage}
+
+
+\item Load the picture into ImageJ v$\ge$1.50
+
+\item Collect OD profiles for all lines with ImageJ including the DNA ladder, protein samples and corresponding backgrounds.
+
+\begin{itemize}
+	\item Select your first lane with a rectangle. \textbf{It is necessary} to align the top edge of selection and the center of the well; otherwise, the regression model will not be correct. It is possible to change width of the selection, but not its height or vertical positioning during subsequent measurements.
+	\item Press Ctrl+Alt+K to get a plot profile.
+	\item Copy-paste data from pop-up list ('List button') into the table which will contain all profiles for the analyzed image. 
+	\item Move the selection horizontally with the arrow keys and collect the other OD profiles (repeat two previous steps).
+	\item Do not forget to record background for protein samples. Remember that you can decrease selection width if you do not have an empty lane. 
+\end{itemize}
+
+
+
+\bigskip 
+
+The screen shots below show example plot profiles for DNA ladder (A), background (B) and one of the sample lanes (C). \\ 
+
+\bigskip 
+\includegraphics[width=17.5cm]{images/imagej}
+
+
+\item At this step you should have a table with the following columns: X values (e.g., \texttt{X}), background values (e.g., \texttt{background}), and values for each lane (e.g., \texttt{Sample\_1}, \texttt{Sample\_2} \textit{etc.}, whatever is meaningful for you). Export as file with \textbf{comma, semicolon or tab-delimited values} (csv, csv2 or tsv) but not as a spreadsheet. 
+Please note that the LibreOffice software has less problems saving this file than the Microsoft Office suite.
+
+
+Below is the beginning of our example table. 
+\bigskip \newline
+\includegraphics[width = 17.5cm]{images/table} 
+
+\end{enumerate}
+
+
+\newpage
+
+\subsection*{Running AGECalibratoR}
+
+\begin{enumerate}
+
+\item Open RStudio, load \texttt{main.R} and press the \texttt{Run App} button (it might be more convenient to open the app in browser). Alternativerly, navigate to \colorbox{yellow}{... }
+
+The window should look similar to the image below. 
+
+\includegraphics[width=17.5cm]{images/shiny_app}
+
+\item Select your table with the \texttt{Browse} button, choose the appropriate field separator if necessary and make sure everything worked well. 
+
+\includegraphics[width=17.5cm]{images/shiny_table_loaded}
+
+\begin{minipage}{0.5\linewidth}
+\item Set up names of columns with X coordinate, background and DNA ladder. They should be already chosen if you strictly followed the procedure above. If your column names are different from the recommended ones, this can be adjusted now: select the values from lists.
+\end{minipage} \hskip .8cm \begin{minipage}{0.6\linewidth}
+\includegraphics[scale=0.5]{images/select_columns}
+\end{minipage}
+
+\begin{minipage}{0.4\linewidth}
+	\includegraphics[scale=0.5]{images/exp_parameters}
+\end{minipage}
+\begin{minipage}{0.6\linewidth}
+\item Now we need to specify the parameters of your experiment. It is very important for the regression. So, please specify: 
+\begin{itemize}
+	\item running time in minutes;
+	\item voltage; 
+	\item distance between electrode in cm; 
+	\item the scale factor of how many pixels are in 1 cm of your image (depends on the camera or scanner you used to obtain the digital representation of the DNA ladder). The easiest way to obtain this value is to take a picture of a ruler with the same instrument. 
+\end{itemize}  
+The program provides realistic default values, but we strongly encourage you to use your own. 
+\end{minipage}
+
+
+\item Now we are ready to get weights of DNA ladder in kb. Go to the next tab (2. Ladder peaks). First adjust the and \texttt{Sigma}, \texttt{Threshold} values (please note that you can use arrow keys to select the values) to make the lines at the plot match the peaks you see. If phantom peaks still appear, it is not a big problem (see below), but non-recognized peaks can interfere with the regression model.
+
+\item We recommend that at this step you keep the ladder image on screen, as we did it in the image below. By default the function tries to fit standard DNA ladder produced by SibEnzyme. Check whether it is true and make necessary adjustments.
+
+\includegraphics[scale=.5]{images/calibrate_ladder_L}
+\includegraphics[scale=.48]{images/calibrate_ladder_R}
+
+
+Please note that if at the previous step there were phantom peaks, place NA at the following position into the \texttt{DNA ladder} field. These values will be omitted for further calculations. An example of such situation is shown below (an additional band is recognized near to the well). 
+
+\includegraphics[width=17.5cm]{images/ladder_with_NA}
+
+In some cases, you might see an error at this step:
+
+\includegraphics[width=17.5cm]{images/error_bands}
+
+If this happens, remove values from the \texttt{DNA ladder} field until the plot appears, and you are able to re-enter your values.  
+
+\item When you are satisfied with the correspondence between the real bands and those recognized by the algorithms, move to the next tab and press the \texttt{Calculate reg.~model} button. 
+Now you should see boxplots for each of the samples and two tables summarizing the corresponding numeric data (percentiles and peaks).  
+
+
+In our example, the first 6 samples and the second 6 samples represented two different [\textit{PSI}\textsuperscript{+}] strains, and the boxplots reproduce the difference seen by naked eye correctly. 
+
+
+\includegraphics[width=17.5cm]{images/result}
+
+
+Finally, with the button below you can download more detailed data (100 percentiles and peaks) and use it for subsequent statistical analysis. 
+
+
+\subsection*{Further processing of the data}
+
+
+The obtained percentile and peak data data can be used for any kind of statistical analyses the user feels appropriate. 
+
+Here we provide the interface for the most obvious tests: comparison of two groups with the Wilcoxon-Mann-Whitney test and comparison of each group to the reference level with Dunn's test. For deeper analysis please download the data as a table and analyze it with your software of choice. 
+
+
+To perform the above-mentioned test, please navigate to the last tab (4. Sample comparison) and check if the program correctly recognized the groups of samples. If not, choose the correct part of the name. 
+
+Then use the test and the parameter to compare (the median characterizing the center of the aggregate distribution, peak optical density value or interquartile range (IQR) characterizing the spread of the distribution) and press the \texttt{Compare groups} button. Please note that if you choose Dunnett's test you need to make your reference (control) level alphabetically first.
+
+\hskip -15mm \includegraphics[scale=0.5]{images/stats_results}
+
+You can now copy/save the resulting image and test results. 
+
+
+\end{enumerate}
+
+
+\end{document}
