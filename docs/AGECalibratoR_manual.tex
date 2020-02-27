@@ -107,39 +107,55 @@
 
 \subsection*{Input data preparation}
 
+
+
 \begin{enumerate}
 
-\item Run SDD-AGE as described elsewhere [\hyperlink{http://www.jbc.org/content/278/49/49636.full}{Kryndushkin \textit{et al.}, 2003}] but include one or more lanes with any commercial 1~kb DNA ladder (about 2~ug is enough) mixed with loading buffer [\hyperlink{dx.doi.org/10.3791/838}{Halfmann \& Lindquist, 2009}].
 
-Important things to remember: 
-\begin{itemize}
-	\item Record agarose concentration in the gel, running time, and voltage.
-	\item Do not change the voltage during the run.
-\end{itemize}
+\begin{minipage}{0.57\linewidth}
+	\item Run SDD-AGE as described elsewhere [\hyperlink{http://www.jbc.org/content/278/49/49636.full}{Kryndushkin \textit{et al.}, 2003}] but include one or more lanes with any commercial 1~kb DNA ladder (about 2~\textmu{}g is enough) mixed with loading buffer [\hyperlink{dx.doi.org/10.3791/838}{Halfmann \& Lindquist, 2008}; please note that this manuscript is a video protocol].
+	
+	Important things to remember: 
+	\begin{itemize}
+		\item Record agarose concentration in the gel, running time, and voltage.
+		\item Do not change the voltage during the run.
+	\end{itemize}
 
-\item Cut off the lane(s) with DNA ladder with any metal or plastic object sharp enough (a plastic ruler, a knife of a scalpel).
+	\item Cut off the lane(s) with DNA ladder with any metal or plastic object sharp enough (a plastic ruler, a knife of a scalpel).
+	
+\end{minipage}
+\begin{minipage}{0.4\linewidth}
+	\hskip 10mm
+	\includegraphics[width=5.5cm]{images/1_2.pdf}
+\end{minipage}  \hskip 3mm
 
-\item Stain the ladder part of the gel with ethidium bromide (e.g., 1 hour in 0.1 mg/L EtBr solution in water) or any alternative method you prefer. Please note that according to our experience incubation in EtBr should be increased about 5 times from that used for usual DNA-AGE. Take a picture of the gel. Even if you forget to cut off the ladder band before capillary transfer, you can still stain the DNA, even thought the bands might be more diffuse. 
 
-\item Use the remaining (protein) part of the gel for capillary transfer to a PVDF/nitrocellulose membrane as described elsewhere [\hyperlink{dx.doi.org/10.3791/838}{Halfmann \& Lindquist, 2009}]. Carefully align either the top or the bottom of the membrane to the top/bottom of the gel.
+
+
+\item Stain the ladder part of the gel with ethidium bromide (e.g., 1 h in 0.1 mg/L EtBr solution in water) or any alternative method you prefer. Please note that according to our experience incubation in EtBr should be increased about 5 times from that used for usual DNA-AGE. Take a picture of the gel. Even if you forget to cut off the ladder band before capillary transfer, you can still stain the DNA, even thought the bands might be more diffuse. 
+
+\hskip 10mm
+\includegraphics[width=15cm]{images/3_7.pdf}
+
+\item Use the remaining (protein) part of the gel for capillary transfer to a PVDF/nitrocellulose membrane as described elsewhere [\hyperlink{dx.doi.org/10.3791/838}{Halfmann \& Lindquist, 2008}]. Carefully align either the top or the bottom of the membrane to the top/bottom of the gel.
 
 \item Hybridize the membrane with corresponding antibody and detect the signal. 
 
 
-\begin{minipage}{0.4\linewidth}
-	\hskip 10mm
-\includegraphics[width=4.5cm]{images/combined_image.png}
-\end{minipage}  \hskip 3mm
-\begin{minipage}{0.57\linewidth}
+%\begin{minipage}{0.4\linewidth}
+%	\hskip 10mm
+
+%\end{minipage}  \hskip 3mm
+%\begin{minipage}{0.57\linewidth}
 	\item Combine images of the DNA ladder in the gel and western blot 
 	using gel/membrane edges for alignment with your favorite image manipulation software (e.g. GIMP or PhotoShop). If necessary adjust the images to make them white-on-black (invert colors if necessary) in 8-bit mode. Export in png or tif(f) format. An example combined image is shown at the left.
 	
 	Please note that you can automatically stretch contrast for the ladder lane to make the bands more clearly visible, but it is not recommended for the main image, as the weight distribution may become shifted.
 	
-\end{minipage}
+%\end{minipage}
 
 
-\item Load the picture into ImageJ v$\ge$1.50
+\item Load the picture into ImageJ/Fiji (v$\ge$1.50 tested).
 
 \item Collect OD profiles for all lines with ImageJ including the DNA ladder, protein samples and corresponding backgrounds.
 
@@ -178,13 +194,13 @@ Below is the beginning of our example table.
 
 \begin{enumerate}
 
-\item Open RStudio, load \texttt{main.R} and press the \texttt{Run App} button (it might be more convenient to open the app in browser). Alternativerly, navigate to \colorbox{yellow}{... }
+\item Open RStudio, load \texttt{main.R} (the source code can be downloaded from \href{https://github.com/drozdovapb/AGECalibratoR}{the git.hub repository}) and press the \texttt{Run App} button (it might be more convenient to open the app in browser). Alternativerly, navigate to \href{https://bioinfo.crbm.cnrs.fr/index.php?route=tools&tool=26}{the site}.
 
 The window should look similar to the image below. 
 
 \includegraphics[width=17.5cm]{images/shiny_app}
 
-\item Select your table with the \texttt{Browse} button, choose the appropriate field separator if necessary and make sure everything worked well. 
+\item Select your table with the \texttt{Browse} button, choose the appropriate field separator if necessary and make sure everything worked well. The table with test data can be found in \href{https://github.com/drozdovapb/AGECalibratoR}{the git.hub repository} in the "test\_data" folder.
 
 \includegraphics[width=17.5cm]{images/shiny_table_loaded}
 
@@ -237,7 +253,11 @@ In our example, the first 6 samples and the second 6 samples represented two dif
 \includegraphics[width=17.5cm]{images/result}
 
 
-Finally, with the button below you can download more detailed data (100 percentiles and peaks) and use it for subsequent statistical analysis. 
+Finally, with the button below you can download more detailed data (100 percentiles and peaks) and use either of these for subsequent statistical analysis. 
+
+In our experience, with clean signal median and peak values are very similar. Based on these results, we would generally recommend using the median value, but also provide peak values for special cases. We also recommend to compare the aggregates sizes only from the same electrophoresis run whenever possible to achieve the most accurate results. The figure below illustrates the robustness of medians on different gels: even though the values may differ between runs, the difference between strains is reproduced.
+
+\includegraphics[width=15cm]{images/medians}
 
 
 \subsection*{Further processing of the data}
